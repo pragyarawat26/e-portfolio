@@ -1,618 +1,1099 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Pragya Rawat | E-Portfolio</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+  <!-- AOS for simple scroll animations (optional) -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
   <style>
-    /* existing code styles */
-    :root {
-      --vibrant: #8669e3;
-      --soft-pink: #f8f4ff;
-      --soft-blue: #ede7fd;
-      --soft-lav: #ecebfc;
-      --accent: #af92f7;
-      --hover-glow: 0 0 14px 2px #ae85f35c;
-      --nav-bg: linear-gradient(90deg,#f3eefe 0%,#ecebfc 100%);
-      --section-bg: linear-gradient(120deg,#f9f7fd 65%,#ecebfc 100%);
-      --nav-shadow: 0 2px 36px #d9d2fc33;
-      --card-bg: linear-gradient(100deg,#ede7fd 40%,#ecebfc 100%);
-      --font-main: 'Montserrat', sans-serif;
-      --icon: #8669e3;
-      --lav: #ae85f3;
-      --nav-height: 62px;
+    /* -------------------- THEME & VARIABLES -------------------- */
+    :root{
+      /* Soft Lavender + Electric Violet palette */
+      --bg: #f6f5fb;
+      --panel: rgba(255,255,255,0.7);
+      --accent: #8C52FF;        /* Electric violet (primary) */
+      --accent-2: #A77BFF;      /* secondary */
+      --muted: #50466d;
+      --glass-border: rgba(140,82,255,0.12);
+      --card-shadow: 0 18px 50px rgba(80,58,160,0.08);
+      --radius: 20px;
+      --nav-height: 68px;
+      --ease: cubic-bezier(.25,.1,.25,1);
+      --text: #1f1b2e;
+      --success: #45b26b;
+      --glass-blur: 8px;
+      --skill-bg: linear-gradient(90deg, rgba(140,82,255,0.12), rgba(167,123,255,0.06));
+      --progress-bg: rgba(255,255,255,0.12);
     }
-    html { scroll-behavior: smooth;}
-    body {
-      margin: 0;
-      background: var(--section-bg);
-      font-family: var(--font-main);
-      color: #1d2242;
-    }
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: var(--nav-height);
-      background: var(--nav-bg);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2.3em;
-      z-index: 100;
-      box-shadow: var(--nav-shadow);
-      border-bottom: 1.5px solid #ece6fc;
-    }
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 1em;
-    }
-    .nav-title {
-      font-size: 1.6em;
-      font-weight: 700;
-      color: var(--vibrant);
-      letter-spacing: 0.04em;
-      margin-right: .65em;
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.2em;
-    }
-    .nav-link {
-      color: #675ca2;
-      font-size: 1.15em;
-      font-weight: 600;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: .36em;
-      transition: color .17s;
-      position: relative;
-      padding: .12em .25em;
-    }
-    .nav-link:hover,
-    .nav-link.active {
-      color: var(--accent);
-      background: #ffffff77;
-      border-radius: 10px;
-      box-shadow: var(--hover-glow);
-    }
-    main { margin-top: var(--nav-height);}
-    .profile-section {
-      text-align: center;
-      padding: 3.5em 1em 2em 1em;
-      background: var(--soft-pink);
-      position: relative;
-    }
-    .profile-pic {
-      width: 145px; height: 145px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 0 15px #cfd5fd99, var(--hover-glow);
-      margin-bottom: 1.13em;
-      border: 3px solid #fff;
-      transition: box-shadow .28s;
-    }
-    .profile-pic:hover { box-shadow: 0 0 33px #9478f799; }
-    .profile-section h1 {
-      font-size: 2.1em; color: var(--vibrant); margin-bottom: 0; font-weight: 800;
-    }
-    .profile-section .subtitle {
-      font-size: 1.18em;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 1em;
-    }
-    .profile-section .bio {
-      background: var(--soft-blue);
-      color: #222256;
-      font-size: 1.11em;
-      max-width: 560px;
-      margin: 1.1em auto 1.4em auto;
-      border-radius: 19px;
-      padding: 1.09em 1.38em;
-      box-shadow: 0 6px 16px #ede7fd4d;
-      line-height: 1.5;
-      font-weight: 500;
-    }
-    .section-title {
-      font-size: 2em;
-      font-weight: 700;
-      letter-spacing: .02em;
-      color: var(--lav);
-      margin: 2.7em 0 0.5em 0;
-      text-align: center;
-      text-shadow: 0 3px 11px #d5c8f676;
-    }
-    .takeaway-3dbox {
-      background: var(--card-bg);
-      border-radius: 17px;
-      margin: 2em auto 1.3em auto;
-      max-width: 650px;
-      box-shadow: 0 0 21px 3px #ae85f22b;
-      border: 2px solid #ede7fd;
-      padding: 2.2em 2em 1.7em 2em;
-      transition: box-shadow .18s, transform .12s;
-    }
-    .takeaway-3dbox:hover {
-      box-shadow: 0 0 21px 7px #cdbafd54;
-      transform: scale(1.025);
-    }
-    .takeaways-list { font-size: 1.12em; margin-top: 1.1em;}
-    .takeaway-point {
-      background: linear-gradient(90deg, #ede7fd33 0%, #ae85f222 100%);
-      margin-bottom: .91em; padding: .85em 1.14em;
-      border-radius: 11px; box-shadow: 0 0 11px #9478f711;
-      font-weight: 600; border-left: 4px solid var(--lav); color: var(--vibrant);
-      transition: background .1s, color .11s;
-    }
-    .takeaway-point:hover {
-      background: linear-gradient(90deg, #ae85f244 0%, #ede7fd77 100%);
-      color: #9478f7; border-left: 4px solid var(--vibrant);
-    }
-    .projects-flex {
-      display: flex; flex-wrap: wrap; gap: 2em; justify-content: center;
-      margin-top: 2em; margin-bottom: 3em;
-    }
-    .project-card {
-      background: var(--soft-lav);
-      box-shadow: 0 0 18px #9478f733;
-      border-radius: 16px;
-      flex: 1 1 330px;
-      min-width: 275px; max-width: 390px;
-      padding: 1.5em 1.25em 1em 1.25em;
-      margin: 1em;
-      transition: box-shadow .18s, transform .16s;
-    }
-    .project-card:hover {
-      box-shadow: 0 0 30px 10px #ae85f288;
-      transform: scale(1.03);
-      z-index: 5;
-    }
-    .project-title {
-      font-size: 1.16em; color: var(--vibrant); font-weight: 700; margin-bottom: .51em;
-      display: flex; gap: .6em; align-items: center;
-    }
-    .project-descr {
-      font-size: 1.06em; color: #715dac; margin-bottom: .8em;
-    }
-    .project-learnings {
-      background: linear-gradient(90deg,#f7f2fb 0%,#ede7fd99 100%);
-      border-radius: 8px;
-      font-size: 1em;
-      padding: .7em .93em;
-      margin-bottom: .7em;
-      color: #46398c;
-      box-shadow: 0 0 7px #9478f711;
-    }
-    .see-details-btn {
-      background: var(--vibrant);
-      color: #fff;
-      border-radius: 13px;
-      font-size: 1.09em;
-      font-weight: 700;
-      border: none;
-      padding: .56em 1.6em;
-      margin-top: .8em;
-      cursor: pointer;
-      box-shadow: 0 0 10px #ae85f247;
-      transition: background .14s, box-shadow .13s;
-      letter-spacing: .025em;
-    }
-    .see-details-btn:hover {
-      background: var(--lav);
-      box-shadow: 0 0 17px #bbaaff34;
-      color: #fff;
-    }
-    /* Modal improvements */
-    .modal-bg {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(44,70,90,0.38);
-      z-index: 9000;
-      align-items: center; 
-      justify-content: center;
-    }
-    .modal-bg.active { display: flex; animation: fadein 0.45s;}
-    @keyframes fadein {0%{opacity:0;}100%{opacity:1;}}
-    .modal-content {
-      background: var(--card-bg);
-      max-width: 540px; 
-      min-width: 280px;
-      width: 97vw;
-      min-height: 300px;
-      max-height: 80vh;
-      color: #332a53;
-      border-radius: 18px;
-      box-shadow: 0 0 26px #ae85f254;
-      padding: 1.4em 1.1em 1.1em 1.1em;
-      position: relative;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-    }
-    .modal-close {
-      position: absolute; top: 7px; right: 14px;
-      font-size: 1.45em;
-      color: var(--lav);
-      background: none; border: none; cursor: pointer;
-      transition: color .13s;
-      z-index: 20;
-    }
-    .modal-close:hover { color: var(--vibrant);}
-    .modal-title {
-      font-size: 1.1em;
-      margin-bottom: .37em;
-      color: var(--vibrant);
-      font-weight: 700;
-    }
-    .modal-section {margin-bottom: .57em;}
-    .modal-section strong { color: var(--lav);}
-    .modal-section:last-child { margin-bottom: 0;}
-    pre {
-      background: #fbfafd;
-      border-radius: 8px;
-      font-size: .96em;
-      width: 100%;
-      max-width: 99%;
-      font-family: "Fira Mono", "Consolas", "Monaco", monospace;
-      overflow-x: auto;
-      overflow-y: auto;
-      max-height: 31vh; /* Now scrollable vertically */
-      border-left: 6px solid #ae85f247;
-      color: #312d50;
-      margin-bottom: 0;
-    }
-    @media (max-width:600px) {
-      .modal-content {
-        max-width: 97vw;
-        max-height: 86vh;
-        font-size: 1.09em;
-        padding: 1em .7em;
-      }
-    }
-    @media (max-width:850px) {
-      .projects-flex{flex-direction:column;align-items:center;}
-      .navbar{padding:0 1em;}
+    /* Dark theme variables (applied on body.dark) */
+    body.dark{
+      --bg: linear-gradient(180deg,#0f0b14 0%, #15121a 100%);
+      --panel: rgba(22,17,33,0.6);
+      --accent: #9b7bff;
+      --accent-2: #caa8ff;
+      --muted: #cfc6ec;
+      --glass-border: rgba(167,123,255,0.12);
+      --card-shadow: 0 18px 60px rgba(0,0,0,0.45);
+      --text: #e8e5f7;
+      --skill-bg: linear-gradient(90deg, rgba(155,123,255,0.12), rgba(202,168,255,0.06));
+      --progress-bg: rgba(255,255,255,0.04);
     }
 
-    /* Contact section styles with LinkedIn preview */
-    .contact-section {
-      position: relative;
-      /* Already defined but redefine for completeness */
+    /* Base reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family: 'Montserrat', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      min-height:100vh;
     }
-    .linkedin-preview {
-      position: absolute;
-      top: -180px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #fff;
-      padding: 1rem 1.3rem;
-      border-radius: 14px;
-      box-shadow: 0 0 20px 6px #a682fc60;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      width: 260px;
-      font-size: 0.9rem;
-      text-align: left;
-      z-index: 25;
+
+    /* page loader overlay */
+    #loader{
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      background: radial-gradient(circle at 30% 20%, rgba(140,82,255,0.06), transparent 15%);
+      z-index:99999;
+      transition: opacity .4s var(--ease), visibility .4s var(--ease);
     }
-    .linkedin-preview.active {
-      opacity: 1;
-      pointer-events: all;
+    #loader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+
+    .spinner{
+      width:72px; height:72px; border-radius:50%;
+      background: conic-gradient(var(--accent), var(--accent-2), transparent 60%);
+      filter: drop-shadow(0 8px 30px rgba(140,82,255,0.12));
+      animation: spin 1.35s linear infinite;
+      display:flex; align-items:center; justify-content:center;
     }
-    .linkedin-preview img {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      float: left;
-      margin-right: 0.9rem;
+    .spinner::after{
+      content:''; width:38px;height:38px;border-radius:50%;background:var(--panel);box-shadow: 0 6px 20px rgba(22,20,40,0.06);
     }
-    .linkedin-name {
-      font-weight: 700;
-      color: #7156ff;
+    @keyframes spin{ to{transform:rotate(360deg)} }
+
+    /* -------------------- NAVBAR (glass sticky) -------------------- */
+    .navbar{
+      position:fixed; top:12px; left:12px; right:12px; height:var(--nav-height);
+      display:flex; align-items:center; justify-content:space-between; gap:1rem;
+      padding:0 1rem; border-radius:14px;
+      background: var(--panel);
+      backdrop-filter: blur(var(--glass-blur)) saturate(1.06);
+      box-shadow: var(--card-shadow);
+      border: 1px solid var(--glass-border);
+      z-index:120;
+      transition: transform .28s var(--ease), box-shadow .28s var(--ease), background .3s var(--ease);
     }
-    .linkedin-headline {
-      color: #7a75ab;
+    .navbar.shrink{ transform: translateY(-6px) scale(.996); box-shadow: 0 30px 80px rgba(40,28,110,0.12) }
+
+    .nav-left{ display:flex; align-items:center; gap:.9rem }
+    .brand{ display:flex; align-items:center; gap:.6rem; font-weight:800; color:var(--accent) }
+    .brand i{ font-size:1.15rem; color:var(--accent-2); filter: drop-shadow(0 6px 20px rgba(140,82,255,0.08)) }
+
+    .nav-links{ display:flex; gap:.5rem; align-items:center }
+    .nav-link{
+      padding:.46rem .68rem; border-radius:12px; text-decoration:none; color:var(--muted); font-weight:700;
+      transition: all .18s var(--ease); display:inline-flex; gap:.55rem; align-items:center; position:relative;
     }
-    @media (max-width: 460px) {
-      .linkedin-preview {
-        width: 90vw;
-        left: 50%;
-        transform: translateX(-50%);
-        top: -160px;
-      }
-      .contact-link {
-        padding: 0.75em 1.3em;
-        font-size: 1em;
-        gap: 0.7em;
-      }
+    /* underline animation */
+    .nav-link::after{
+      content:''; position:absolute; left:12px; right:12px; bottom:-8px; height:3px; border-radius:6px;
+      background: linear-gradient(90deg,var(--accent),var(--accent-2)); transform: scaleX(0); transform-origin:left; transition: transform .25s var(--ease), opacity .25s;
+      opacity:0;
+    }
+    .nav-link:hover{ color:var(--accent) }
+    .nav-link.active{ color:var(--accent); }
+    .nav-link.active::after{ transform: scaleX(1); opacity:1; bottom:-10px; }
+
+    /* Hamburger for mobile */
+    .hamburger{ display:none; background:none; border:none; font-size:1.2rem; padding:.45rem; border-radius:10px; cursor:pointer }
+    .mobile-menu{ display:none; position:fixed; top:calc(var(--nav-height) + 26px); right:16px; width:260px; background:var(--panel); border-radius:14px; border:1px solid var(--glass-border); box-shadow:var(--card-shadow); padding:.9rem; z-index:130; }
+
+    /* -------------------- MAIN LAYOUT -------------------- */
+    main{ max-width:1100px; margin:calc(var(--nav-height) + 34px) auto 80px; padding:1rem; }
+
+    /* Profile */
+    .profile{
+      padding:2.6rem 1rem; border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(140,82,255,0.04), rgba(167,123,255,0.02));
+      box-shadow: var(--card-shadow);
+      position:relative; overflow:visible;
+    }
+    .profile-grid{ display:flex; gap:1.1rem; align-items:center; justify-content:center; flex-wrap:wrap }
+    .profile-pic{ width:142px; height:142px; border-radius:18px; object-fit:cover; border:4px solid rgba(255,255,255,0.85); box-shadow: 0 16px 48px rgba(92,76,255,0.12); transition: transform .28s var(--ease); }
+    .profile-pic:hover{ transform: translateY(-6px) scale(1.03) }
+
+    .headline{ text-align:center; }
+    .headline h1{ font-size:1.9rem; margin-top:.35rem; font-weight:800; color:var(--text) }
+    .subtitle{ color:var(--accent-2); font-weight:700; margin-top:.35rem; font-size:1rem; min-height:26px; }
+    /* typewriter */
+    .typewriter{ display:inline-block; border-right:2px solid rgba(100,80,200,0.18); padding-right:.25rem; animation: blink .9s steps(2) infinite; }
+    @keyframes blink{ 50%{ border-color: transparent } }
+
+    .bio{ margin-top:0.9rem; display:inline-block; padding:.9rem 1.1rem; border-radius:12px; background:linear-gradient(180deg, rgba(231, 157, 157, 0.95), rgba(18, 11, 53, 0.9)); box-shadow: 0 10px 30px rgba(46, 37, 138, 0.06); max-width:760px; font-weight:500; color:var(--text) }
+    /* animated background gradient behind profile */
+    .profile::before{
+      content:''; position:absolute; inset:0; z-index:-1; margin:auto; width:110%; height:110%;
+      background: radial-gradient(circle at 10% 10%, rgba(167,123,255,0.06), transparent 6%),
+                  radial-gradient(circle at 90% 80%, rgba(140,82,255,0.04), transparent 6%);
+      filter: blur(18px);
+      border-radius:inherit;
+      transform: translateY(-18px);
+      opacity:.95;
+    }
+
+    /* Projects */
+    .section-title{ text-align:center; font-size:1.6rem; margin:1.8rem 0 .5rem 0; color:var(--muted); font-weight:800 }
+    .projects{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:1rem; margin-top:1rem }
+.card{
+  background:var(--panel);
+  border-radius:18px;
+  padding:1rem;
+  border:1px solid var(--glass-border);
+  box-shadow: var(--card-shadow);
+  transition:
+    transform .35s var(--ease),
+    box-shadow .35s var(--ease),
+    color .22s;
+  will-change: transform, box-shadow;
+  perspective: 600px;
+  position: relative;
+  z-index: 1;
+}
+
+.card:hover, .card:focus-within {
+  transform: scale(1.05) rotateY(8deg) rotateX(4deg);
+  box-shadow:
+    0 12px 60px 0 rgba(155,123,255,0.20),
+    0 0 40px 16px #a77bff35,
+    var(--card-shadow);
+  color: var(--accent);
+}
+.card::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s;
+  box-shadow:
+      0 6px 52px 9px #9b7bff30,
+      0 0 90px 34px #ae9bff13;
+  z-index: -1;
+}
+.card:hover::after, .card:focus-within::after{
+  opacity: 1;
+}
+
+    .card{
+      background:var(--panel); border-radius:18px; padding:1rem; border:1px solid var(--glass-border);
+      box-shadow: var(--card-shadow); transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+    }
+    .card:hover{ transform: translateY(-12px) rotateX(2deg); box-shadow: 0 40px 120px rgba(80,58,160,0.12) }
+    .card-title{ font-weight:800; color:var(--accent) }
+
+    .see-details{ margin-top:.6rem; background: linear-gradient(90deg,var(--accent),var(--accent-2)); color:white; border:none; padding:.56rem .86rem; border-radius:12px; font-weight:800; cursor:pointer; box-shadow: 0 10px 36px rgba(140,82,255,0.12); transition: transform .18s var(--ease); }
+    .see-details:hover{ transform: translateY(-4px); filter:brightness(1.03) }
+
+    /* Modal improved with back button */
+    /* --- Accessibility: stronger modal/background contrast for readability --- */
+    .modal-bg{ background: rgba(12,10,22,0.78); }
+    .modal{ background: rgba(255,255,255,0.96); }
+    body.dark .modal{ background: rgba(22,17,33,0.94); }
+    
+    .modal-bg{ display:none; position:fixed; inset:0; background: rgba(12,10,22,0.55); z-index:9999; align-items:center; justify-content:center; padding:1.2rem }
+    .modal-bg.active{ display:flex; animation: modalIn .28s var(--ease) both }
+    @keyframes modalIn{ from{ opacity:0; transform: translateY(8px) } to{ opacity:1; transform:none } }
+
+    .modal{ width:calc(100% - 40px); max-width:820px; background:var(--panel); border-radius:18px; padding:1.1rem; border:1px solid var(--glass-border); box-shadow: var(--card-shadow); position:relative; max-height:84vh; overflow:auto }
+    .modal .modal-header{ display:flex; align-items:center; justify-content:space-between; gap:1rem }
+    .modal .close-btn, .modal .back-btn{ background:none; border:none; font-weight:800; color:var(--accent-2); padding:.45rem; border-radius:8px; cursor:pointer }
+    .modal .back-btn{ display:inline-flex; align-items:center; gap:.5rem }
+    pre{ background: linear-gradient(180deg,#fbfaff,#f4f2ff); padding:.9rem; border-radius:12px; overflow:auto; font-family: 'Fira Code', monospace; border-left:6px solid rgba(140,82,255,0.12); color:var(--muted) }
+
+ .interest-chip {
+  background: var(--panel);
+  border-radius: 18px;
+  box-shadow: 0 8px 40px rgba(80, 72, 160, 0.09);
+  border: 1px solid var(--glass-border);
+  padding: 1rem 2rem;
+  font-weight: 700;
+  color: var(--muted);
+  font-size: 1.22rem;
+  text-align: center;
+  margin-bottom: .7rem;
+  transition: 
+    transform .25s cubic-bezier(.38,.09,.47,.97),
+    box-shadow .23s cubic-bezier(.38,.09,.47,.97),
+    color .25s;
+  cursor: pointer;
+  position: relative;
+  /* For animated glow */
+  z-index: 1;
+}
+.interest-chip:hover, .interest-chip:focus {
+  transform: scale(1.075);
+  color: var(--accent);
+  box-shadow:
+    0 0 0 0 rgba(140,82,255,0.16),
+    0 6px 36px 0 rgba(140,82,255,0.12),
+    0 0 24px 10px #eddcff90; /* Soft lavender glow */
+  /* Optional animated border glow using :after below */
+}
+.interest-chip::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .23s;
+  box-shadow:
+    0 0 24px 6px #ad87ff60,
+    0 0 80px 24px #a77bff1a;
+  z-index: -1;
+}
+.interest-chip:hover::after, .interest-chip:focus::after {
+  opacity: 1;
+}
+   .interest-chip {
+  background: var(--panel);
+  border-radius: 18px;
+  box-shadow: 0 8px 40px rgba(80, 72, 160, 0.09);
+  border: 1px solid var(--glass-border);
+  padding: 1rem 2rem;
+  font-weight: 700;
+  color: var(--muted);
+  font-size: 1.22rem;
+  text-align: center;
+  margin-bottom: .7rem;
+  transition: transform .22s var(--ease), box-shadow .22s;
+}
+.interest-chip:hover {
+  transform: scale(1.045) translateY(-5px);
+  box-shadow: 0 16px 60px rgba(140,82,255,0.10);
+  color: var(--accent);
+}
+.takeaway-box {
+  min-width:220px;
+  max-width:300px;
+  background: linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,247,254,0.98));
+  padding:1rem;
+  border-radius:12px;
+  box-shadow: 0 10px 30px rgba(80,72,160,0.07);
+  color:var(--muted);
+  font-weight:600;
+  position:relative;
+  transition:
+    transform .23s cubic-bezier(.28,.76,.42,.99),
+    box-shadow .22s cubic-bezier(.28,.76,.42,.99);
+  cursor: pointer;
+  z-index:1;
+}
+.takeaway-box:hover,
+.takeaway-box:focus {
+  transform: scale(1.055) translateY(-6px);
+  box-shadow:
+    0 0 0 0 rgba(140,82,255,0.28),
+    0 10px 54px 0 rgba(140,82,255,0.13),
+    0 0 38px 10px #d3bafd56;
+  color: var(--accent);
+}
+.takeaway-box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .22s;
+  box-shadow:
+      0 0 14px 4px #d3bafd70,
+      0 0 54px 18px #8C52FF18;
+  z-index: -1;
+}
+.takeaway-box:hover::after,
+.takeaway-box:focus::after {
+  opacity: 1;
+}
+
+
+    /* Takeaways */
+    .takeaway{ margin:1.2rem auto; padding:1rem; border-radius:14px; background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,247,254,0.98)); border:1px solid rgba(140,82,255,0.04); box-shadow: 0 12px 40px rgba(80,64,160,0.04); max-width:900px }
+
+    /* -------------------- SKILLS SECTION -------------------- */
+    .skills-section{ margin-top:1.6rem; padding:1rem; border-radius:18px; background:var(--panel); border:1px solid var(--glass-border); box-shadow: var(--card-shadow) }
+    .skills-grid{ display:grid; grid-template-columns: 1fr 340px; gap:1rem; align-items:center }
+    .skills-list{ display:flex; flex-direction:column; gap:.9rem }
+    .skill-row{ display:flex; flex-direction:column; gap:.35rem }
+    .skill-label{ display:flex; justify-content:space-between; align-items:center; font-weight:700; color:var(--muted) }
+    .progress-track{ width:100%; height:14px; border-radius:999px; background:var(--progress-bg); overflow:hidden; border:1px solid rgba(0,0,0,0.03) }
+    .progress-bar{ height:100%; width:0%; border-radius:999px; background: linear-gradient(90deg,var(--accent),var(--accent-2)); box-shadow: 0 8px 22px rgba(140,82,255,0.12); transition: width 1.4s var(--ease) }
+
+    /* rotating icons column for visual variety */
+    .skills-side{ display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:center }
+    .skill-icon{ width:72px; height:72px; border-radius:12px; display:flex; align-items:center; justify-content:center; background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(245,244,252,0.9)); border:1px solid rgba(140,82,255,0.04); box-shadow: 0 12px 40px rgba(80,64,160,0.04); transition: transform .6s var(--ease) }
+    .skill-icon.rotate{ animation: rotateIcon 8s linear infinite }
+    @keyframes rotateIcon{ from{ transform: rotate(0deg) } to{ transform: rotate(360deg) } }
+
+    /* -------------------- CONTACT -------------------- */
+    .contact{ margin-top:1.6rem; padding:1rem; border-radius:18px; background:var(--panel); border:1px solid var(--glass-border); box-shadow: var(--card-shadow); position:relative; overflow:visible }
+    .contact .links{ display:flex; gap:.6rem; align-items:center; flex-wrap:wrap; margin-top:.6rem }
+    .contact-link{ display:inline-flex; gap:.6rem; align-items:center; padding:.6rem .9rem; border-radius:12px; text-decoration:none; background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(245,244,252,0.95)); border:1px solid rgba(120,100,255,0.06); box-shadow: 0 10px 30px rgba(98,81,255,0.05); color:var(--muted); font-weight:700; transition: transform .22s var(--ease), box-shadow .22s }
+    .contact-link:hover{ transform: translateY(-8px) rotateX(3deg); box-shadow: 0 26px 60px rgba(98,81,255,0.12); color:var(--accent) }
+    /* tilt on hover */
+    .contact-link.tilt:hover{ transform: translateY(-6px) rotateZ(-4deg) scale(1.02) }
+
+    /* LinkedIn preview slide-up */
+    .linkedin-preview{ position:absolute; top:-180px; left:50%; transform:translateX(-50%) translateY(10px); width:320px; max-width:92vw; background:var(--panel); border-radius:14px; padding:.85rem; border:1px solid var(--glass-border); box-shadow: 0 30px 80px rgba(20,16,60,0.12); opacity:0; pointer-events:none; transition: transform .28s var(--ease), opacity .22s; z-index:40 }
+    .linkedin-preview.active{ transform:translateX(-50%) translateY(0); opacity:1; pointer-events:auto }
+    .linkedin-preview img{ width:56px; height:56px; border-radius:10px; object-fit:cover; border:3px solid rgba(255,255,255,0.9) }
+    .linkedin-meta{ display:flex; flex-direction:column; gap:.18rem; }
+
+    /* copy email tooltip */
+    .tooltip{ position:relative; display:inline-block }
+    .tooltip .tip{ position:absolute; bottom:120%; left:50%; transform:translateX(-50%); background:var(--accent); color:white; padding:.4rem .55rem; border-radius:8px; font-size:.85rem; opacity:0; pointer-events:none; transition: opacity .18s }
+    .tooltip.show .tip{ opacity:1; pointer-events:auto }
+
+    /* soft SVG wave behind contact */
+    .contact-wave{ position:absolute; right:-6%; top:-18%; width:420px; opacity:0.08; transform: rotate(-10deg) }
+
+    /* responsive */
+    @media (max-width:920px){
+      .skills-grid{ grid-template-columns: 1fr; }
+      .profile-grid{ gap:.6rem }
+      .linkedin-preview{ left:50%; top:-150px }
+    }
+    @media (max-width:720px){
+      .nav-links{ display:none }
+      .hamburger{ display:inline-flex }
+      .mobile-menu{ display:none }
+      .navbar{ left:8px; right:8px }
     }
   </style>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="nav-left">
-      <span class="nav-title"><i class="fas fa-user-graduate" style="color:var(--icon)"></i> Pragya Portfolio</span>
-    </div>
-    <div class="nav-links">
-      <a class="nav-link active" href="#profile"><i class="fas fa-home"></i> Home</a>
-      <a class="nav-link" href="#projects"><i class="fas fa-lightbulb"></i> Projects</a>
-      <a class="nav-link" href="#takeaways"><i class="fas fa-star"></i> Takeaways</a>
-      <a class="nav-link" href="#contact"><i class="fas fa-envelope"></i> Contact</a>
-    </div>
-  </nav>
-  <section class="profile-section" id="profile">
-    <img src="https://media.licdn.com/dms/image/v2/D4E03AQGn9yU7VGQ_lg/profile-displayphoto-scale_200_200/B4EZhkRz7.GYAY-/0/1754029055872?e=2147483647&v=beta&t=9TVToQV19yGVGOxfEGeO-p7Sfw1ILSfoEWe30IJgXds" alt="Pragya Rawat Profile Photo" class="profile-pic"/>
-    <h1>Hi, I'm Pragya Rawat</h1>
-    <div class="subtitle"><i class="fas fa-graduation-cap"></i> BTech Second Year Student</div>
-    <div class="bio">
-      Enthusiastic learner with a passion for programming, UI design, and emerging tech. Skilled in building web apps and scientific tools. Loves projects that combine creativity, logic, and problem solving. Currently exploring algorithms and system design in BTech Computer Science!
-    </div>
-  </section>
-  <h2 class="section-title" id="projects">My Projects</h2>
-  <div class="projects-flex">
-    <div class="project-card">
-      <div class="project-title"><i class="fas fa-calculator"></i> Scientific Calculator</div>
-      <div class="project-descr">
-        A mathematical toolkit built in Semester 1 using C. It performs advanced calculations, supports trigonometric, logarithmic, history and more.
-      </div>
-      <div class="project-learnings">
-        Key Learnings:<br>
-        - Deep dive into control structures<br>
-        - Implementing custom functions<br>
-        - File I/O (history tracking)<br>
-        - CLI UI & robust error handling
-      </div>
-      <button class="see-details-btn" onclick="showModal('project1')">See Details</button>
-    </div>
-    <div class="project-card">
-      <div class="project-title"><i class="fas fa-tasks"></i> CPU Task Scheduler</div>
-      <div class="project-descr">
-        A simulation of how CPUs handle tasks using algorithms like FCFS, SJF, and Round Robin.<br>
-        Visual tool with insights into task management and scheduling order.
-      </div>
-      <div class="project-learnings">
-        Key Learnings:<br>
-        - OS Scheduling algorithms<br>
-        - Data plotting in C++<br>
-        - Code structure & state management<br>
-        - Real-world system simulation
-      </div>
-      <button class="see-details-btn" onclick="showModal('project2')">See Details</button>
-    </div>
+  <!-- LOADER -->
+  <div id="loader" aria-hidden="true">
+    <div class="spinner" role="img" aria-label="Loading"></div>
   </div>
-  <div class="modal-bg" id="modal-project1">
-    <div class="modal-content">
-      <button class="modal-close" onclick="hideModal('project1')"><i class="fas fa-times"></i></button>
-      <div class="modal-title"><i class="fas fa-calculator"></i> Scientific Calculator - Details</div>
-      <div class="modal-section"><strong>Approach:</strong> Modular code, menu + functions, robust error-handling and history tracking via files.</div>
-      <div class="modal-section"><strong>Key Learnings:</strong> Custom logic, function pointers, string ops.</div>
-      <div class="modal-section"><strong>Algorithms Used:</strong> Parsing, computation, text file operations.</div>
-      <div class="modal-section"><strong>Topics covered:</strong> Functions, loops, arrays, file handling, error checks.</div>
-      <div class="modal-section"><strong>Code Snippet:</strong>
-        <pre>
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;math.h&gt;
-#include &lt;string.h&gt;
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="nav-left">
+      <div class="brand"><i class="fas fa-user-graduate"></i> Pragya Portfolio</div>
+    </div>
+
+    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+      <a class="nav-link active" href="#profile">Home</a>
+      <a class="nav-link" href="#projects">Projects</a>
+      <a class="nav-link" href="#skills">Skills</a>
+      <a class="nav-link" href="#takeaways">Takeaways</a>
+      <a class="nav-link" href="#contact">Contact</a>
+    </nav>
+
+    <div style="display:flex; gap:.6rem; align-items:center">
+      <!-- Theme toggle -->
+      <button id="themeToggle" title="Toggle theme" aria-pressed="false" style="background:none;border:none;padding:.45rem;border-radius:10px;cursor:pointer">
+        <i class="fas fa-moon" id="themeIcon" style="color:var(--muted);font-size:1.02rem"></i>
+      </button>
+
+      <!-- Hamburger for mobile -->
+      <button class="hamburger" id="hamburger" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+    </div>
+
+    <!-- Mobile menu panel -->
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-hidden="true">
+      <a class="nav-link" href="#profile">Home</a><br>
+      <a class="nav-link" href="#projects">Projects</a><br>
+      <a class="nav-link" href="#skills">Skills</a><br>
+      <a class="nav-link" href="#takeaways">Takeaways</a><br>
+      <a class="nav-link" href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- PROFILE -->
+    <section id="profile" class="profile" data-aos="fade-up">
+      <div class="profile-grid">
+        <img class="profile-pic" src="https://media.licdn.com/dms/image/v2/D4E03AQGn9yU7VGQ_lg/profile-displayphoto-scale_200_200/B4EZhkRz7.GYAY-/0/1754029055872?e=2147483647&v=beta&t=9TVToQV19yGVGOxfEGeO-p7Sfw1ILSfoEWe30IJgXds" alt="Pragya Rawat">
+        <div class="headline" style="max-width:760px">
+          <h1>Hi, I'm Pragya Rawat</h1>
+          <div class="subtitle"><span class="typewriter" id="typewriter"></span></div>
+          <div class="bio">I'm a curious and enthusiastic beginner in the tech world, eager to learn and grow. I'm exploring the realms of coding, development, and innovation.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <h2 class="section-title" data-aos="fade-up">My Projects</h2>
+    <div class="projects" id="projects">
+      <div class="card" data-aos="fade-up">
+        <div class="card-title">Scientific Calculator <small style="font-weight:600;color:var(--muted)"> — C</small></div>
+        <p style="color:var(--muted);margin-top:.5rem">A mathematical toolkit built in Semester 1 using C. It performs advanced calculations and tracks history.</p>
+        <button class="see-details" onclick="openModal('project1')">See Details</button>
+      </div>
+
+      <div class="card" data-aos="fade-up">
+        <div class="card-title">CPU Task Scheduler <small style="font-weight:600;color:var(--muted)"> — C++</small></div>
+        <p style="color:var(--muted);margin-top:.5rem">Simulation of CPU scheduling (FCFS, SJF, Round Robin) with visual insights.</p>
+        <button class="see-details" onclick="openModal('project2')">See Details</button>
+      </div>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal-bg" id="modal-project1" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+          <div>
+            <div style="font-weight:800;font-size:1.05rem;color:var(--accent)">Scientific Calculator</div>
+            <div style="color:var(--muted);font-size:.92rem">Approach: Modular, file-backed history, robust error handling.</div>
+          </div>
+          <div style="display:flex;gap:.4rem;align-items:center">
+            <button class="back-btn" onclick="closeModal('project1')"><i class="fas fa-arrow-left"></i> Back</button>
+            <button class="close-btn" onclick="closeModal('project1')"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+
+        <div style="margin-top:.7rem;color:var(--muted)">
+          <strong>Key Learnings:</strong> Functions, file I/O, parsing, CLI UX.
+        </div>
+
+        <div style="margin-top:.6rem;color:var(--muted)">
+          <strong>Topics Covered:</strong>
+          <ul style="margin-top:.4rem;color:var(--muted)">
+            <li>Control structures & conditional logic</li>
+            <li>Modular programming & functions</li>
+            <li>File I/O and history management</li>
+            <li>Error handling & input validation</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:.8rem">
+          <strong>Code Snippet (paste your C code here):</strong>
+          <pre id="snippet1">
+include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
 
 typedef struct {
+
     char operation[50];
+
     double result;
+
 } Calculation;
 
 void save_to_history(Calculation calc) {
+
     FILE *fp = fopen("history.txt", "a");
+
     if (fp == NULL) {
+
         printf("Error opening history file.\n");
+
         return;
+
     }
+
     fprintf(fp, "%s = %.2lf\n", calc.operation, calc.result);
-    fclose(fp);
-}
 
+    fclose(fp);
+
+}
 void view_history() {
-    FILE *fp = fopen("history.txt","r");
-    if (fp == NULL) {
-        printf("No history found.\n");
-        return;
-    }
-    char ch;
-    printf("\n--- Calculation History ---\n");
-    while ((ch = fgetc(fp)) != EOF) {
-        putchar(ch);
-    }
-    fclose(fp);
-    printf("\n----------------------------\n");
-}
 
-double factorial(int n) {
-    if (n &lt; 0) return -1;
-    double fact = 1;
-    for (int I = 2; I &lt;= n; I++) {
-        fact *= I;
+    FILE *fp = fopen("history.txt","r");
+
+    if (fp == NULL) {
+
+        printf("No history found.\n");
+
+        return;
+
     }
+
+    char ch;
+
+    printf("\n--- Calculation History ---\n");
+
+    while ((ch = fgetc(fp)) != EOF) {
+
+        putchar(ch);
+
+    }
+
+    fclose(fp);
+
+    printf("\n----------------------------\n");
+
+}
+double factorial(int n) {
+
+    if (n < 0) return -1;
+
+    double fact = 1;
+
+    for (int I = 2; I <= n; I++) {
+
+        fact *= I;
+
+    }
+
     return fact;
 }
 
 int main() {
-    int choice;
-    double num1, num2, result;
-    int n;
-    Calculation calc;
 
+    int choice;
+
+    double num1, num2, result;
+
+    int n;
+
+    Calculation calc;
     do {
+
         printf("\n--- Scientific Calculator ---\n");
+
         printf("1. Addition\n2. Subtraction\n3. Multiplication\n4. Division\n");
+
         printf("5. Sine\n6. Cosine\n7. Tangent\n8. Logarithm\n");
+
         printf("9. Exponentiation\n10. Factorial\n11. View History\n12. Exit\n");
+
         printf("Enter your choice: ");
+
         scanf("%d", &choice);
 
+
+
         switch (choice) {
+
             case 1:
+
                 printf("Enter two numbers: ");
+
                 scanf("%lf %lf", &num1, &num2);
+
                 result = num1 + num2;
-                sprintf(calc.operation, "%.2lf + %.2lf", num1, num2);
+
+                sprint(calc.operation, "%.2lf + %.2lf", num1, num2);
+
                 break;
+
             case 2:
+
                 printf("Enter two numbers: ");
+
                 scanf("%lf %lf", &num1, &num2);
+
                 result = num1 - num2;
-                sprintf(calc.operation, "%.2lf - %.2lf", num1, num2);
+
+                sprint(calc.operation, "%.2lf - %.2lf", num1, num2);
+
                 break;
+
             case 3:
+
                 printf("Enter two numbers: ");
+
                 scanf("%lf %lf", &num1, &num2);
+
                 result = num1 * num2;
-                sprintf(calc.operation, "%.2lf * %.2lf", num1, num2);
+
+                sprint(calc.operation, "%.2lf * %.2lf", num1, num2);
+
                 break;
+
             case 4:
+
                 printf("Enter dividend and divisor: ");
+
                 scanf("%lf %lf", &num1, &num2);
+
                 if (num2 == 0) {
+
                     printf("Error: Division by zero\n");
+
                     continue;
+
                 }
+
                 result = num1 / num2;
-                sprintf(calc.operation, "%.2lf / %.2lf", num1, num2);
+
+                sprint(calc.operation, "%.2lf / %.2lf", num1, num2);
+
                 break;
+
             case 5:
+
                 printf("Enter angle in degrees: ");
+
                 scanf("%lf", &num1);
+
                 result = sin(num1 * M_PI / 180);
-                sprintf(calc.operation, "sin(%.2lf)", num1);
+
+                sprint(calc.operation, "sin(%.2lf)", num1);
+
                 break;
+
             case 6:
+
                 printf("Enter angle in degrees: ");
+
                 scanf("%lf", &num1);
+
                 result = cos(num1 * M_PI / 180);
-                sprintf(calc.operation, "cos(%.2lf)", num1);
+
+                sprint(calc.operation, "cos(%.2lf)", num1);
+
                 break;
+
             case 7:
+
                 printf("Enter angle in degrees: ");
+
                 scanf("%lf", &num1);
+
                 result = tan(num1 * M_PI / 180);
-                sprintf(calc.operation, "tan(%.2lf)", num1);
+
+                sprint(calc.operation, "tan(%.2lf)", num1);
+
                 break;
+
             case 8:
+
                 printf("Enter number: ");
+
                 scanf("%lf", &num1);
+
                 if (num1 <= 0) {
+
                     printf("Error: Log undefined for non-positive numbers.\n");
+
                     continue;
+
                 }
+
                 result = log(num1);
-                sprintf(calc.operation, "log(%.2lf)", num1);
+
+                sprint(calc.operation, "log(%.2lf)", num1);
+
                 break;
+
             case 9:
+
                 printf("Enter base and exponent: ");
+
                 scanf("%lf %lf", &num1, &num2);
+
                 result = pow(num1, num2);
-                sprintf(calc.operation, "%.2lf ^ %.2lf", num1, num2);
+
+                sprint(calc.operation, "%.2lf ^ %.2lf", num1, num2);
+
                 break;
+
             case 10:
+
                 printf("Enter a non-negative integer: ");
+
                 scanf("%d", &n);
+
                 if (n < 0) {
+
                     printf("Error: Factorial of negative number undefined.\n");
+
                     continue;
+
                 }
+
                 result = factorial(n);
-                sprintf(calc.operation, "%d!", n);
+
+                sprint(calc.operation, "%d!", n);
+
                 break;
+
             case 11:
+
                 view_history();
+
                 continue;
+
             case 12:
+
                 printf("Exiting calculator.\n");
+
                 exit(0);
+
             default:
+
                 printf("Invalid choice.\n");
+
                 continue;
         }
         calc.result = result;
         printf("Result: %.2lf\n", result);
         save_to_history(calc);
     } while (1);
-
     return 0;
+
 }
-        </pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt;
+#include &lt;string.h&gt;
+
+/* ... your code ... */
+          </pre>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="modal-bg" id="modal-project2">
-    <div class="modal-content">
-      <button class="modal-close" onclick="hideModal('project2')"><i class="fas fa-times"></i></button>
-      <div class="modal-title"><i class="fas fa-tasks"></i> CPU Task Scheduler - Details</div>
-      <div class="modal-section"><strong>Approach:</strong> Used process structs, visualizes scheduling order, handles multiple scheduling strategies.</div>
-      <div class="modal-section"><strong>Key Learnings:</strong> Scheduler logic, code modularity, CLI output design.</div>
-      <div class="modal-section"><strong>Algorithms Used:</strong> FCFS, SJF, Round Robin.</div>
-      <div class="modal-section"><strong>Topics covered:</strong> Structs, queues, sim logic, CLI.</div>
-      <div class="modal-section"><strong>Code Snippet:</strong>
-        <pre>// Paste your C/C++ code snippet here!</pre>
+
+    <div class="modal-bg" id="modal-project2" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+          <div>
+            <div style="font-weight:800;font-size:1.05rem;color:var(--accent)">CPU Task Scheduler</div>
+            <div style="color:var(--muted);font-size:.92rem">Approach: Simulation of scheduling algorithms.</div>
+          </div>
+          <div style="display:flex;gap:.4rem;align-items:center">
+            <button class="back-btn" onclick="closeModal('project2')"><i class="fas fa-arrow-left"></i> Back</button>
+            <button class="close-btn" onclick="closeModal('project2')"><i class="fas fa-times"></i></button>
+          </div>
+        </div>
+
+        <div style="margin-top:.7rem;color:var(--muted)">
+          <strong>Code Snippet:</strong>
+        </div>
+        <pre>// Paste your C/C++ code snippet here</pre>
       </div>
     </div>
-  </div>
-  <!-- Key Takeaways -->
-  <div class="takeaway-3dbox" id="takeaways">
-    <div class="section-title" style="margin-top:0;">Key Takeaways</div>
-    <div class="takeaways-list">
-      <div class="takeaway-point">SWOC Analysis: Mastering self-reflection and strategic planning</div>
-      <div class="takeaway-point">On-spot Speaking: Thinking on my feet and communicating with confidence</div>
-      <div class="takeaway-point">Interview Skills: Acing interviews and showcasing my strengths</div>
-      <div class="takeaway-point">Presentation Skills: Delivering impactful presentations that wow audiences</div>
+
+<!-- EDUCATION SECTION -->
+<section id="education" data-aos="fade-up" style="margin-top:2rem; max-width:900px; margin-left:auto; margin-right:auto;">
+  <h2 class="section-title" style="color:var(--muted); font-weight:800; text-align:center; margin-bottom:1rem;">Education</h2>
+  <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+    <!-- Schooling -->
+    <div style="flex:1 1 280px; background: var(--panel); border:1px solid var(--glass-border); box-shadow: var(--card-shadow); border-radius:18px; padding:1.5rem;">
+      <h3 style="color:var(--accent); font-weight:800; margin-bottom:0.5rem;">Schooling</h3>
+      <p style="color:var(--muted); font-weight:600; font-size:1rem;">
+        Completed high school at .....
+      </p>
+    </div>
+    <!-- Current Degree -->
+    <div style="flex:1 1 280px; background: var(--panel); border:1px solid var(--glass-border); box-shadow: var(--card-shadow); border-radius:18px; padding:1.5rem;">
+      <h3 style="color:var(--accent); font-weight:800; margin-bottom:0.5rem;">Currently Pursuing</h3>
+      <p style="color:var(--muted); font-weight:600; font-size:1rem;">
+        BTech in Computer Science at Graphic Era Hill University, Dehradun.
+      </p>
     </div>
   </div>
-  <!-- Contact -->
-  <section class="contact-section" id="contact">
-    <div class="contact-title"><i class="fas fa-envelope"></i> Contact Me</div>
-    <div class="contact-links">
-      <a class="contact-link" href="mailto:pragyarawat@email.com"><span>📧</span>Email</a>
-      <a class="contact-link"
-         href="https://www.linkedin.com/in/pragya-r-4b9102342?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-         target="_blank"><span>🔗</span>LinkedIn</a>
-      <a class="contact-link" href="https://github.com/pragyrawat" target="_blank" rel="noopener"><span>🌐</span>GitHub</a>
+</section>
+
+    <!-- TAKEAWAYS -->
+    <div class="takeaway" id="takeaways" data-aos="fade-up">
+    <div style="font-weight:800;color:var(--accent);text-align:center">Key Takeaways</div>
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:1rem">
+      <div style="min-width:220px;max-width:300px;background:linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,247,254,0.98));padding:1rem;border-radius:12px;box-shadow:0 10px 30px rgba(80,72,160,0.06);color:var(--muted);font-weight:600;">
+        <div style="font-weight:800;color:var(--accent);margin-bottom:.4rem">SWOC Analysis</div>
+        Mastering self-reflection and strategic planning.
+      </div>
+      <div style="min-width:220px;max-width:300px;background:linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,247,254,0.98));padding:1rem;border-radius:12px;box-shadow:0 10px 30px rgba(80,72,160,0.06);color:var(--muted);font-weight:600;">
+        <div style="font-weight:800;color:var(--accent);margin-bottom:.4rem">On-spot Speaking</div>
+        Thinking on my feet and communicating with confidence.
+      </div>
+      <div style="min-width:220px;max-width:300px;background:linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,247,254,0.98));padding:1rem;border-radius:12px;box-shadow:0 10px 30px rgba(80,72,160,0.06);color:var(--muted);font-weight:600;">
+        <div style="font-weight:800;color:var(--accent);margin-bottom:.4rem">Interview & Presentation Skills</div>
+        Enhancing confidence and communication effectiveness.
+      </div>
     </div>
-    <p style="color:var(--vibrant);font-size:1.08em;margin-top:1.7em;">
-      Always open to interesting web, coding, and design projects!
-    </p>
-  </section>
+    <!-- SKILLS -->
+    <section id="skills" class="skills-section" data-aos="fade-up">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:.6rem">
+        <div style="font-weight:800;color:var(--accent);font-size:1.04rem">Skills</div>
+        <div style="color:var(--muted);font-weight:700">Animated progress bars & rotating icons</div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skills-list">
+          <div class="skill-row" data-skill="Python" data-percent="30">
+            <div class="skill-label"><span>Python</span><span>30%</span></div>
+            <div class="progress-track" style="display:none"><div class="progress-bar" style="display:none" style="--w:30%"></div></div>
+          </div>
+
+          <div class="skill-row" data-skill="C" data-percent="80">
+            <div class="skill-label"><span>C</span><span>80%</span></div>
+            <div class="progress-track" style="display:none"><div class="progress-bar" style="display:none" style="--w:80%"></div></div>
+          </div>
+
+          <div class="skill-row" data-skill="C++" data-percent="60">
+            <div class="skill-label"><span>C++</span><span>60%</span></div>
+            <div class="progress-track" style="display:none"><div class="progress-bar" style="display:none" style="--w:60%"></div></div>
+          </div>
+
+          <div class="skill-row" data-skill="HTML" data-percent="20">
+            <div class="skill-label"><span>HTML</span><span>20%</span></div>
+            <div class="progress-track" style="display:none"><div class="progress-bar" style="display:none" style="--w:20%"></div></div>
+          </div>
+        </div>
+
+        <div class="skills-side" aria-hidden="true">
+          <div class="skill-icon rotate" title="Python"><i class="fab fa-python" style="font-size:28px;color:var(--accent)"></i></div>
+          <div class="skill-icon" title="C"><i class="fas fa-code" style="font-size:22px;color:var(--accent-2)"></i></div>
+          <div class="skill-icon" title="C++"><i class="fas fa-laptop-code" style="font-size:22px;color:var(--accent)"></i></div>
+          <div class="skill-icon" title="HTML"><i class="fab fa-html5" style="font-size:24px;color:var(--accent-2)"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTEREST AREAS SECTION -->
+<section id="interests" data-aos="fade-up" style="margin-top:2rem; max-width:950px; margin-left:auto; margin-right:auto;">
+  <h2 class="section-title" style="color:var(--accent); text-align:center; font-weight:800; margin-bottom:1.7rem;">Interest Areas</h2>
+  <div style="display:flex; flex-wrap:wrap; gap:1.3rem; justify-content:center;">
+    <div class="interest-chip">Web Development</div>
+    <div class="interest-chip">Artificial Intelligence</div>
+    <div class="interest-chip">Cybersecurity</div>
+    <div class="interest-chip">Data Science</div>
+    <div class="interest-chip">Cloud Computing</div>
+  </div>
+  <div style="display:flex; justify-content:center; margin-top:1.35rem;">
+    <div class="interest-chip" style="min-width:220px;">Machine Learning</div>
+  </div>
+</section>
+
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact" data-aos="fade-up">
+      <div style="font-weight:800;color:var(--accent)">Contact Me</div>
+
+      <div class="links" style="margin-top:.6rem">
+        <a class="contact-link" href="mailto:pragyarawat@email.com" id="emailLink">
+          <span>📧</span>Email
+        </a>
+
+        <div class="tooltip" style="display:inline-block">
+          <a class="contact-link tilt" id="linkedinLink" href="https://www.linkedin.com/in/pragya-r-4b9102342" target="_blank" rel="noopener">
+            <span>🔗</span>LinkedIn
+          </a>
+          <div class="tip" role="status" style="display:none">Copied</div>
+        </div>
+
+        <a class="contact-link tilt" id="githubLink" href="https://github.com/pragyrawat" target="_blank" rel="noopener">
+          <span>🌐</span>GitHub
+        </a>
+
+        <!-- Copy email button -->
+        <button class="contact-link" id="copyEmailBtn" title="Copy email to clipboard" style="background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;">
+          <i class="fas fa-copy"></i> Copy Email
+        </button>
+      </div>
+
+      <!-- LinkedIn preview card -->
+      <div class="linkedin-preview" id="linkedinPreview" aria-hidden="true">
+        <img src="https://media.licdn.com/dms/image/v2/D4E03AQGn9yU7VGQ_lg/profile-displayphoto-scale_200_200/B4EZhkRz7.GYAY-/0/1754029055872?e=2147483647&v=beta&t=9TVToQV19yGVGOxfEGeO-p7Sfw1ILSfoEWe30IJgXds" alt="Pragya">
+        <div class="linkedin-meta">
+          <div style="font-weight:800;color:var(--accent)">Pragya Rawat</div>
+          <div style="color:var(--muted)">BTech CSE | Aspiring Developer | UI Enthusiast</div>
+          <div style="margin-top:.5rem;color:var(--muted);font-size:.92rem">Open to freelance web & design projects. Loves algorithms.</div>
+        </div>
+      </div>
+
+      <!-- soft wave SVG -->
+      <svg class="contact-wave" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#8C52FF"/><stop offset="1" stop-color="#A77BFF"/></linearGradient></defs>
+        <path d="M0 100 C150 10 450 190 600 100 L600 0 L0 0 Z" fill="url(#g1)"></path>
+      </svg>
+
+      <div style="margin-top:.8rem;color:var(--muted);font-weight:700">Always open to interesting web, coding, and design projects!</div>
+    </section>
+  </main>
+
+  <!-- AOS & GSAP (optional includes) -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
   <script>
-    // Navbar active section highlight
-    const links = document.querySelectorAll('.nav-link');
-    window.addEventListener('scroll', () => {
-      const offset = window.scrollY + 80;
-      links.forEach(link => {
-        const sec = document.querySelector(link.getAttribute('href'));
-        if(sec && sec.offsetTop <= offset && sec.offsetTop + sec.offsetHeight > offset) {
-          links.forEach(l=>l.classList.remove('active'));
+    // COMPONENT: Hide loader after page ready
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+      setTimeout(()=> loader.classList.add('hidden'), 550);
+      // init AOS
+      if(window.AOS) AOS.init({ duration:650, easing: 'ease-in-out', once:true });
+    });
+
+    // Theme toggle (light/dark) uses class on body to switch CSS variables
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    function setTheme(dark){
+      if(dark){
+        document.body.classList.add('dark');
+        themeIcon.className = 'fas fa-sun';
+        themeToggle.setAttribute('aria-pressed','true');
+        localStorage.setItem('theme','dark');
+      } else {
+        document.body.classList.remove('dark');
+        themeIcon.className = 'fas fa-moon';
+        themeToggle.setAttribute('aria-pressed','false');
+        localStorage.setItem('theme','light');
+      }
+    }
+    // initialize theme from storage or prefers-color-scheme
+// initialize theme: default to dark if not previously set
+const saved = localStorage.getItem('theme');
+if(saved === 'light') setTheme(false);
+else setTheme(true); // dark is default
+
+
+    themeToggle.addEventListener('click', ()=> setTheme(!document.body.classList.contains('dark')));
+
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', ()=> {
+      const open = mobileMenu.style.display === 'block';
+      mobileMenu.style.display = open ? 'none' : 'block';
+      mobileMenu.setAttribute('aria-hidden', open ? 'true' : 'false');
+    });
+
+    // Nav active highlight on scroll + shrink effect
+    const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', ()=>{
+      const offset = window.scrollY + 120;
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if(!href || !href.startsWith('#')) return;
+        const sec = document.querySelector(href);
+        if(sec && sec.offsetTop <= offset && sec.offsetTop + sec.offsetHeight > offset){
+          navLinks.forEach(l=> l.classList.remove('active'));
           link.classList.add('active');
         }
       });
+      const navbar = document.getElementById('navbar');
+      if(window.scrollY > 18) navbar.classList.add('shrink'); else navbar.classList.remove('shrink');
     });
-    // Modals
-    window.showModal = function(id) {
-      document.getElementById('modal-'+id).classList.add('active');
+
+    // IntersectionObserver for animating progress bars when in view
+    const skillRows = document.querySelectorAll('.skill-row');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          const row = entry.target;
+          const percent = row.getAttribute('data-percent') || row.querySelector('.progress-bar').style.getPropertyValue('--w') || '0%';
+          const bar = row.querySelector('.progress-bar');
+          // animate width using GSAP if available for smoothness
+          if(window.gsap){
+            gsap.to(bar, { width: percent, duration:1.4, ease: 'power3.out' });
+          } else {
+            bar.style.width = percent;
+          }
+          observer.unobserve(row);
+        }
+      });
+    }, { threshold: 0.28 });
+    skillRows.forEach(r => observer.observe(r));
+
+    // Rotating icons: pause on hover
+    document.querySelectorAll('.skill-icon').forEach(icon => {
+      icon.addEventListener('mouseenter', ()=> icon.style.animationPlayState = 'paused');
+      icon.addEventListener('mouseleave', ()=> icon.style.animationPlayState = 'running');
+    });
+
+    // LinkedIn preview: slide up with small delay, accessible
+    (function(){
+      const link = document.getElementById('linkedinLink');
+      const preview = document.getElementById('linkedinPreview');
+      if(!link || !preview) return;
+      let showT, hideT;
+      function show(){ clearTimeout(hideT); showT = setTimeout(()=> preview.classList.add('active'), 120); }
+      function hide(){ clearTimeout(showT); hideT = setTimeout(()=> preview.classList.remove('active'), 90); }
+      link.addEventListener('mouseenter', show); link.addEventListener('mouseleave', hide);
+      preview.addEventListener('mouseenter', show); preview.addEventListener('mouseleave', hide);
+      // keyboard focus support
+      link.addEventListener('focus', show); link.addEventListener('blur', hide);
+    })();
+
+    // Copy email to clipboard with tooltip feedback
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const email = 'pragyarawat@email.com';
+    copyBtn.addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText(email);
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied';
+        setTimeout(()=> copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Email', 1600);
+      }catch(e){
+        alert('Copy not supported on this browser. Email: ' + email);
+      }
+    });
+
+    // Modal open/close helpers (openModal/back/close)
+    function openModal(id){
+      const el = document.getElementById('modal-' + id);
+      if(!el) return;
+      el.classList.add('active');
+      el.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
     }
-    window.hideModal = function(id) {
-      document.getElementById('modal-'+id).classList.remove('active');
+    function closeModal(id){
+      const el = document.getElementById('modal-' + id);
+      if(!el) return;
+      el.classList.remove('active');
+      el.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
     }
-    // LinkedIn preview small popup
-    const linkedinLink = document.getElementById('linkedin-link');
-    const preview = document.getElementById('linkedin-preview');
-    linkedinLink.addEventListener('mouseenter', () => preview.classList.add('active'));
-    linkedinLink.addEventListener('mouseleave', () => preview.classList.remove('active'));
+
+    // Typewriter effect for subtitle (cycles phrases)
+    const phrases = ['BTech Student', 'Web Developer', 'UI Enthusiast', 'Problem Solver'];
+    let pIdx = 0, cIdx = 0, typing = true;
+    const tw = document.getElementById('typewriter');
+    function typeLoop(){
+      const current = phrases[pIdx];
+      if(typing){
+        cIdx++;
+        tw.textContent = current.slice(0,cIdx);
+        if(cIdx === current.length){ typing = false; setTimeout(typeLoop, 900); } else setTimeout(typeLoop, 80);
+      } else {
+        cIdx--;
+        tw.textContent = current.slice(0,cIdx);
+        if(cIdx === 0){ typing = true; pIdx = (pIdx + 1) % phrases.length; setTimeout(typeLoop, 200); } else setTimeout(typeLoop, 40);
+      }
+    }
+    typeLoop();
+
+    // 3D tilt effect on project cards
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left; 
+    const y = e.clientY - rect.top;
+    const cx = rect.width/2;
+    const cy = rect.height/2;
+    const dx = (x-cx)/cx;
+    const dy = (y-cy)/cy;
+    card.style.transform = `scale(1.05) rotateY(${dx*10}deg) rotateX(${-dy*8}deg)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+  card.addEventListener('mouseenter', () => {
+    card.style.transition = 'transform .22s var(--ease)';
+  });
+});
+
+
+    // Respect reduced motion
+    if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.documentElement.style.setProperty('scroll-behavior','auto');
+    }
   </script>
 </body>
 </html>
